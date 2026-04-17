@@ -5,29 +5,15 @@ import TimelineCard from "@/components/TimelineCard";
 
 const STORAGE_KEY = 'keenkeeper_interactions';
 
-const timelineData = [
-  { id: 1, type: "Meetup", person: "Tom Baker", date: "March 29, 2026", timestamp: 1711747200000 },
-  { id: 2, type: "Text", person: "Sarah Chen", date: "March 28, 2026", timestamp: 1711660800000 },
-  { id: 3, type: "Meetup", person: "Olivia Martinez", date: "March 26, 2026", timestamp: 1711497600000 },
-  { id: 4, type: "Video", person: "Aisha Patel", date: "March 23, 2026", timestamp: 1711248000000 },
-  { id: 5, type: "Meetup", person: "Sarah Chen", date: "March 21, 2026", timestamp: 1710892800000 },
-  { id: 6, type: "Call", person: "Marcus Johnson", date: "March 19, 2026", timestamp: 1710729600000 },
-  { id: 7, type: "Meetup", person: "Aisha Patel", date: "March 17, 2026", timestamp: 1710566400000 },
-  { id: 8, type: "Text", person: "Olivia Martinez", date: "March 13, 2026", timestamp: 1710201600000 },
-  { id: 9, type: "Call", person: "Lisa Nakamura", date: "March 11, 2026", timestamp: 1710048000000 },
-  { id: 10, type: "Call", person: "Sarah Chen", date: "March 11, 2026", timestamp: 1710048000000 },
-  { id: 11, type: "Video", person: "Marcus Johnson", date: "March 6, 2026", timestamp: 1709644800000 },
-  { id: 12, type: "Video", person: "Ryan O'Brien", date: "February 24, 2026", timestamp: 1708771200000 },
-];
-
 const TimelinePage = () => {
   const [filter, setFilter] = useState('all');
-  const [savedEvents, setSavedEvents] = useState([]);
+  const [savedEvents] = useState(() => {
+    if (typeof window === 'undefined') return [];
 
-  useEffect(() => {
     const raw = window.localStorage.getItem(STORAGE_KEY);
     const stored = raw ? JSON.parse(raw) : [];
-    const localEvents = stored.map((event) => ({
+
+    return stored.map((event) => ({
       id: event.id,
       type: event.type,
       person: event.person,
@@ -38,11 +24,10 @@ const TimelinePage = () => {
         year: 'numeric',
       }),
     }));
-    setSavedEvents(localEvents);
-  }, []);
+  });
 
   const mergedEvents = useMemo(
-    () => [...savedEvents, ...timelineData].sort((a, b) => b.timestamp - a.timestamp),
+    () => savedEvents.sort((a, b) => b.timestamp - a.timestamp),
     [savedEvents]
   );
 
@@ -74,9 +59,16 @@ const TimelinePage = () => {
         </div>
 
         <div className="space-y-2">
-          {visibleEvents.map((item) => (
-            <TimelineCard key={`${item.id}-${item.timestamp}`} item={item} />
-          ))}
+          {visibleEvents.length === 0 ? (
+            <div className="text-center py-12">
+              <p className="text-slate-500 text-lg">No interactions yet.</p>
+              <p className="text-slate-400 text-sm mt-2">Start connecting with your friends to see your timeline here.</p>
+            </div>
+          ) : (
+            visibleEvents.map((item) => (
+              <TimelineCard key={`${item.id}-${item.timestamp}`} item={item} />
+            ))
+          )}
         </div>
       </div>
     </main>

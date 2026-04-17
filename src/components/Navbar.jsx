@@ -1,9 +1,19 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { HiOutlineHome, HiOutlineClock, HiOutlineChartBar } from "react-icons/hi2";
 
 export default function Navbar() {
+  const pathname = usePathname();
+
+  const isActive = (path) => pathname === path;
+
+  const linkClasses = (path) =>
+    isActive(path)
+      ? "flex items-center gap-1 rounded-md bg-green-800 px-3 py-1.5 text-white"
+      : "flex items-center gap-1 text-slate-500 hover:text-slate-900";
+
   return (
     <header className="border-b border-slate-200 bg-white/90 backdrop-blur-md">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-3">
@@ -16,10 +26,10 @@ export default function Navbar() {
         {/* Nav Items */}
         <nav className="flex items-center gap-6 text-sm font-medium">
           
-          {/* Home Button (Active) */}
+          {/* Home Button */}
           <Link
             href="/"
-            className="flex items-center gap-1 rounded-md bg-green-800 px-3 py-1.5 text-white"
+            className={linkClasses("/")}
           >
             <HiOutlineHome className="text-base" />
             Home
@@ -28,7 +38,7 @@ export default function Navbar() {
           {/* Timeline */}
           <Link
             href="/timeline"
-            className="flex items-center gap-1 text-slate-500 hover:text-slate-900"
+            className={linkClasses("/timeline")}
           >
             <HiOutlineClock className="text-base" />
             Timeline
@@ -37,7 +47,7 @@ export default function Navbar() {
           {/* Stats */}
           <Link
             href="/stats"
-            className="flex items-center gap-1 text-slate-500 hover:text-slate-900"
+            className={linkClasses("/stats")}
           >
             <HiOutlineChartBar className="text-base" />
             Stats

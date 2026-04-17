@@ -9,18 +9,17 @@ import 'react-toastify/dist/ReactToastify.css';
 const STORAGE_KEY = 'keenkeeper_interactions';
 
 const FriendsDetails = () => {
-    const { id } = useParams(); // URL থেকে id নিবে
+    const { id } = useParams();
     const [friend, setFriend] = useState(null);
 
     useEffect(() => {
         fetch('/friends.json')
             .then((res) => res.json())
             .then((data) => {
-                // JSON থেকে নির্দিষ্ট আইডি-র বন্ধুকে খুঁজে বের করবে
-                const foundFriend = data.find((f) => f.id === parseInt(id));
+                const foundFriend = data.find((f) => f.id === parseInt(id, 10));
                 setFriend(foundFriend);
             })
-            .catch((err) => console.error("Error loading friend details:", err));
+            .catch((err) => console.error('Error loading friend details:', err));
     }, [id]);
 
     const loadInteractions = () => {
@@ -59,15 +58,13 @@ const FriendsDetails = () => {
     if (!friend) return <div className="p-8 text-center">Loading...</div>;
 
     const statusConfig = {
-        overdue: { label: "Overdue", class: "bg-rose-500 text-white" },
-        active: { label: "On Track", class: "bg-emerald-900 text-white" },
+        overdue: { label: 'Overdue', class: 'bg-rose-500 text-white' },
+        active: { label: 'On Track', class: 'bg-emerald-900 text-white' },
     };
 
     return (
         <div className="min-h-screen bg-[#F8FAFC] p-8">
             <div className="max-w-6xl mx-auto grid grid-cols-12 gap-6">
-                
-                {/* Left Side: Profile Card */}
                 <div className="col-span-12 md:col-span-4 space-y-6">
                     <div className="bg-white rounded-2xl p-8 border border-slate-100 shadow-sm text-center">
                         <div className="relative h-24 w-24 mx-auto rounded-full overflow-hidden border-2 border-slate-50">
@@ -75,18 +72,18 @@ const FriendsDetails = () => {
                         </div>
                         <h2 className="text-2xl font-bold text-slate-800 mt-4">{friend.name}</h2>
                         <div className="mt-2 flex flex-col items-center gap-2">
-                            <span className={`text-[10px] font-bold px-4 py-1 rounded-full uppercase ${statusConfig[friend.status]?.class || "bg-slate-100"}`}>
-                                {friend.status}
+                            <span className={`text-[10px] font-bold px-4 py-1 rounded-full uppercase ${statusConfig[friend.status]?.class || 'bg-slate-100'}`}>
+                                {statusConfig[friend.status]?.label || friend.status}
                             </span>
-                            <div className="flex gap-2">
-                                {friend.tags.map(tag => (
+                            <div className="flex gap-2 flex-wrap justify-center">
+                                {friend.tags.map((tag) => (
                                     <span key={tag} className="bg-emerald-100 text-emerald-600 text-[10px] font-bold px-4 py-1 rounded-full uppercase">
                                         {tag}
                                     </span>
                                 ))}
                             </div>
                         </div>
-                        <p className="mt-6 text-slate-400 italic text-sm font-medium">"{friend.bio}"</p>
+                        <p className="mt-6 text-slate-400 italic text-sm font-medium">&ldquo;{friend.bio}&rdquo;</p>
                         <p className="text-slate-400 text-xs mt-1">Email: {friend.email}</p>
                     </div>
 
@@ -103,7 +100,6 @@ const FriendsDetails = () => {
                     </div>
                 </div>
 
-                {/* Right Side: Stats & Goals */}
                 <div className="col-span-12 md:col-span-8 space-y-6">
                     <div className="grid grid-cols-3 gap-4">
                         <div className="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm text-center">
@@ -156,12 +152,7 @@ const FriendsDetails = () => {
                     </div>
                 </div>
             </div>
-        </div>
-        <ToastContainer />
-    );
-};
-                </div>
-            </div>
+            <ToastContainer />
         </div>
     );
 };
