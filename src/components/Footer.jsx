@@ -40,6 +40,7 @@ export default function Footer() {
           </div>
         </div>
       </div>
+      
 
       <div className="flex flex-col items-center justify-between gap-3 border-t border-white/10 px-6 py-4 text-xs text-white/70 sm:flex-row">
         <p>© 2026 KeenKeeper. All rights reserved.</p>

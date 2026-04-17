@@ -70,7 +70,7 @@ const FriendsDetails = () => {
                 <div className="col-span-12 md:col-span-4 space-y-6">
                     <div className="bg-white rounded-2xl p-8 border border-slate-100 shadow-sm text-center">
                         <div className="relative h-24 w-24 mx-auto rounded-full overflow-hidden border-2 border-slate-50">
-                            <Image src={friend.picture} alt={friend.name} fill className="object-cover" />
+                            <Image src={friend.picture} alt={friend.name} fill sizes="96px" className="object-cover" />
                         </div>
                         <h2 className="text-2xl font-bold text-slate-800 mt-4">{friend.name}</h2>
                         <div className="mt-2 flex flex-col items-center gap-2">

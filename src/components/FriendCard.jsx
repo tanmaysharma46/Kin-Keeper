@@ -14,10 +14,11 @@ export default function FriendCard({ friend }) {
     <Link href={`/friends-details/${friend.id}`}>
       <article className="rounded-sm border border-slate-100 bg-white p-8 shadow-sm transition flex flex-col items-center cursor-pointer h-full">
         <div className="relative h-24 w-24 overflow-hidden rounded-full border-2 border-slate-50">
-          <Image 
-            src={friend.picture} 
-            alt={friend.name} 
+          <Image
+            src={friend.picture}
+            alt={friend.name}
             fill
+            sizes="96px"
             className="object-cover"
           />
         </div>
@@ -30,8 +31,8 @@ export default function FriendCard({ friend }) {
 
           <div className="mt-4 flex flex-wrap justify-center gap-2">
             {friend.tags.map((tag) => (
-              <span 
-                key={tag} 
+              <span
+                key={tag}
                 className="rounded-full bg-emerald-50 px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-emerald-600"
               >
                 {tag}
