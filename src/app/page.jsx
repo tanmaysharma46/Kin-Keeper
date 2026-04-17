@@ -1,9 +1,9 @@
 import { Suspense } from 'react';
 import AddFriendSection from "@/components/AddFrinedSection";
-import FriendCard from "@/components/FriendCard";
 import FriendsSection from "@/components/FriendsSection";
-import StatCard from "@/components/StatCard";
 import Loader from "@/components/Loader";
+
+export const dynamic = 'force-dynamic';
 
 async function getFriends() {
   const url = new URL(
