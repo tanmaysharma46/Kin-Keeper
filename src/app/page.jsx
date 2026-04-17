@@ -1,7 +1,9 @@
+import { Suspense } from 'react';
 import AddFriendSection from "@/components/AddFrinedSection";
 import FriendCard from "@/components/FriendCard";
 import FriendsSection from "@/components/FriendsSection";
 import StatCard from "@/components/StatCard";
+import Loader from "@/components/Loader";
 
 async function getFriends() {
   const url = new URL(
@@ -11,30 +13,29 @@ async function getFriends() {
 
   const res = await fetch(url, { next: { revalidate: 60 } });
   if (!res.ok) return [];
+
+  // Small delay to ensure loader shows during development
+  await new Promise(resolve => setTimeout(resolve, 1000));
+
   return res.json();
 }
 
-export default async function Home() {
-  const friends = await getFriends();
-  const totalFriends = friends.length;
-  const overdueCount = friends.filter((friend) => friend.status?.toLowerCase() === "overdue").length;
-  const onTrackCount = friends.filter((friend) => friend.status?.toLowerCase() === "active").length;
-  const needAttentionCount = friends.filter(
-    (friend) =>
-      friend.status?.toLowerCase() === "almost due" || friend.status?.toLowerCase() === "overdue"
-  ).length;
-  const displayFriends = friends.slice(0, 12);
+async function HomeContent() {
+  await getFriends();
+  return (
+    <main className="mx-auto max-w-7xl px-6 py-16">
+      <AddFriendSection />
+      <FriendsSection />
+    </main>
+  );
+}
 
+export default function Home() {
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900">
-
-
-
-      <main className="mx-auto max-w-7xl px-6 py-16">
-        <AddFriendSection/>
-        <FriendsSection/>
-      </main>
-
+      <Suspense fallback={<Loader />}>
+        <HomeContent />
+      </Suspense>
     </div>
   );
 }

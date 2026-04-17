@@ -12,7 +12,7 @@ export default function FriendCard({ friend }) {
 
   return (
     <Link href={`/friends-details/${friend.id}`}>
-      <article className="rounded-2xl border border-slate-100 bg-white p-8 shadow-sm transition hover:shadow-md flex flex-col items-center cursor-pointer h-full">
+      <article className="rounded-sm border border-slate-100 bg-white p-8 shadow-sm transition flex flex-col items-center cursor-pointer h-full">
         <div className="relative h-24 w-24 overflow-hidden rounded-full border-2 border-slate-50">
           <Image 
             src={friend.picture} 
