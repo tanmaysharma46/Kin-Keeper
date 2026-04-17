@@ -17,16 +17,13 @@ export default function Navbar() {
   return (
     <header className="border-b border-slate-200 bg-white/90 backdrop-blur-md">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-3">
-        
-        {/* Logo */}
+
         <div className="flex items-center gap-2 text-slate-800">
           <span className="text-lg font-semibold">KeenKeeper</span>
         </div>
 
-        {/* Nav Items */}
         <nav className="flex items-center gap-6 text-sm font-medium">
-          
-          {/* Home Button */}
+
           <Link
             href="/"
             className={linkClasses("/")}
@@ -35,7 +32,6 @@ export default function Navbar() {
             Home
           </Link>
 
-          {/* Timeline */}
           <Link
             href="/timeline"
             className={linkClasses("/timeline")}
@@ -44,7 +40,6 @@ export default function Navbar() {
             Timeline
           </Link>
 
-          {/* Stats */}
           <Link
             href="/stats"
             className={linkClasses("/stats")}
