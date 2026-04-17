@@ -7,13 +7,13 @@ const STORAGE_KEY = 'keenkeeper_interactions';
 
 const TimelinePage = () => {
   const [filter, setFilter] = useState('all');
-  const [savedEvents] = useState(() => {
-    if (typeof window === 'undefined') return [];
+  const [savedEvents, setSavedEvents] = useState([]);
 
+  useEffect(() => {
     const raw = window.localStorage.getItem(STORAGE_KEY);
     const stored = raw ? JSON.parse(raw) : [];
 
-    return stored.map((event) => ({
+    const formatted = stored.map((event) => ({
       id: event.id,
       type: event.type,
       person: event.person,
@@ -24,10 +24,12 @@ const TimelinePage = () => {
         year: 'numeric',
       }),
     }));
-  });
+
+    setSavedEvents(formatted);
+  }, []);
 
   const mergedEvents = useMemo(
-    () => savedEvents.sort((a, b) => b.timestamp - a.timestamp),
+    () => [...savedEvents].sort((a, b) => b.timestamp - a.timestamp),
     [savedEvents]
   );
 

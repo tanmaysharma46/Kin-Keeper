@@ -38,7 +38,7 @@ const InteractionChart = ({ interactions = [] }) => {
     <div className="bg-white p-8 rounded-xl shadow-sm border border-slate-50 w-full max-w-4xl">
       <h3 className="text-emerald-900 font-semibold text-sm mb-4">By Interaction Type</h3>
 
-      <div className="h-75 w-full">
+      <div className="h-72 w-full min-h-[280px]">
         <ResponsiveContainer width="100%" height="100%">
           <PieChart>
             <Pie
