@@ -1,0 +1,50 @@
+"use client";
+
+import Link from "next/link";
+import { HiOutlineHome, HiOutlineClock, HiOutlineChartBar } from "react-icons/hi2";
+
+export default function Navbar() {
+  return (
+    <header className="border-b border-slate-200 bg-white/90 backdrop-blur-md">
+      <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-3">
+        
+        {/* Logo */}
+        <div className="flex items-center gap-2 text-slate-800">
+          <span className="text-lg font-semibold">KeenKeeper</span>
+        </div>
+
+        {/* Nav Items */}
+        <nav className="flex items-center gap-6 text-sm font-medium">
+          
+          {/* Home Button (Active) */}
+          <Link
+            href="/"
+            className="flex items-center gap-1 rounded-md bg-green-800 px-3 py-1.5 text-white"
+          >
+            <HiOutlineHome className="text-base" />
+            Home
+          </Link>
+
+          {/* Timeline */}
+          <Link
+            href="/timeline"
+            className="flex items-center gap-1 text-slate-500 hover:text-slate-900"
+          >
+            <HiOutlineClock className="text-base" />
+            Timeline
+          </Link>
+
+          {/* Stats */}
+          <Link
+            href="/stats"
+            className="flex items-center gap-1 text-slate-500 hover:text-slate-900"
+          >
+            <HiOutlineChartBar className="text-base" />
+            Stats
+          </Link>
+
+        </nav>
+      </div>
+    </header>
+  );
+}
