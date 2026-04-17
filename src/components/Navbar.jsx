@@ -18,6 +18,7 @@ export default function Navbar() {
   return (
     <header className="border-b border-slate-200 bg-white/90 backdrop-blur-md">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-3">
+        
 
         <Link href={'/'}>
           <div className="flex items-center gap-2 text-slate-800">
