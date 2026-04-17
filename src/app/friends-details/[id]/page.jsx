@@ -60,6 +60,8 @@ const FriendsDetails = () => {
     const statusConfig = {
         overdue: { label: 'Overdue', class: 'bg-rose-500 text-white' },
         active: { label: 'On Track', class: 'bg-emerald-900 text-white' },
+        almost_due: { label: "Almost Due", class: "bg-amber-400 text-white" },
+
     };
 
     return (

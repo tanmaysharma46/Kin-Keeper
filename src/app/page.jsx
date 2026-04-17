@@ -1,6 +1,7 @@
 import AddFriendSection from "@/components/AddFrinedSection";
+import FriendCard from "@/components/FriendCard";
 import FriendsSection from "@/components/FriendsSection";
-
+import StatCard from "@/components/StatCard";
 
 async function getFriends() {
   const url = new URL(
@@ -14,7 +15,15 @@ async function getFriends() {
 }
 
 export default async function Home() {
-
+  const friends = await getFriends();
+  const totalFriends = friends.length;
+  const overdueCount = friends.filter((friend) => friend.status?.toLowerCase() === "overdue").length;
+  const onTrackCount = friends.filter((friend) => friend.status?.toLowerCase() === "active").length;
+  const needAttentionCount = friends.filter(
+    (friend) =>
+      friend.status?.toLowerCase() === "almost due" || friend.status?.toLowerCase() === "overdue"
+  ).length;
+  const displayFriends = friends.slice(0, 12);
 
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900">
@@ -22,12 +31,8 @@ export default async function Home() {
 
 
       <main className="mx-auto max-w-7xl px-6 py-16">
-        <AddFriendSection />
+        <AddFriendSection/>
         <FriendsSection/>
-
-
-
-
       </main>
 
     </div>
