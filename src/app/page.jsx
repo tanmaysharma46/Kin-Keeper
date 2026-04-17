@@ -1,3 +1,5 @@
+import AddFriendSection from "@/components/AddFrinedSection";
+import FriendsSection from "@/components/FriendsSection";
 
 
 async function getFriends() {
@@ -20,9 +22,10 @@ export default async function Home() {
 
 
       <main className="mx-auto max-w-7xl px-6 py-16">
+        <AddFriendSection />
+        <FriendsSection/>
 
 
-    
 
 
       </main>
